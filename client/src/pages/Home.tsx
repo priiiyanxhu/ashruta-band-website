@@ -7,13 +7,15 @@
  * Features: Gallery, Enhanced Blog, Origin Story, Premium UX
  */
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Instagram, Youtube, Mail, Play, MapPin, Calendar, ArrowRight, X, Phone } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import MusicPlayer from "@/components/MusicPlayer";
 import VideoModal from "@/components/VideoModal";
 import { InstagramFeed } from "@/components/InstagramFeed";
+import ScrollProgressBar from "@/components/ScrollProgressBar";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { useScrollAnimations, useInViewport } from "@/hooks/useScrollAnimations";
 
 /* ── Asset URLs ── */
 const ASSETS = {
@@ -149,6 +151,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
+      <ScrollProgressBar />
       <Navbar />
 
       {/* ── HERO SECTION ── */}
@@ -331,8 +334,10 @@ export default function Home() {
               <button
                 key={i}
                 onClick={() => setSelectedGalleryImage(image.src)}
-                className="group relative overflow-hidden rounded-lg h-64 animate-scale-in"
-                style={{ animationDelay: `${i * 0.1}s` }}
+                className={`group relative overflow-hidden rounded-lg h-64 ${
+                  i === 0 ? 'rotate-scale' : i === 1 ? 'rotate-scale' : i === 2 ? 'rotate-scale' : 'rotate-scale'
+                }`}
+                style={{ opacity: 0, animationDelay: `${i * 0.15}s` }}
               >
                 <img
                   src={image.src}
@@ -364,8 +369,10 @@ export default function Home() {
             {TOUR_DATES.map((show, i) => (
               <div
                 key={i}
-                className="bg-gradient-to-br from-gray-900 to-gray-950 p-8 rounded-lg border border-gray-800 hover:border-red-600/50 transition-all duration-300 animate-scale-in group"
-                style={{ animationDelay: `${i * 0.1}s` }}
+                className={`bg-gradient-to-br from-gray-900 to-gray-950 p-8 rounded-lg border border-gray-800 hover:border-red-600/50 transition-all duration-300 ${
+                  i === 0 ? 'bounce-pop-in-1' : i === 1 ? 'bounce-pop-in-2' : 'bounce-pop-in-3'
+                } group`}
+                style={{ opacity: 0 }}
               >
                 <div className="mb-6">
                   <div className="flex items-center gap-2 text-red-500 mb-3">
@@ -428,8 +435,10 @@ export default function Home() {
             {BLOG_POSTS.map((post, i) => (
               <div
                 key={i}
-                className="bg-black rounded-lg overflow-hidden hover:shadow-2xl hover:shadow-red-600/30 transition-all duration-300 animate-scale-in"
-                style={{ animationDelay: `${i * 0.1}s` }}
+                className={`bg-black rounded-lg overflow-hidden hover:shadow-2xl hover:shadow-red-600/30 transition-all duration-300 ${
+                  i === 0 ? 'slide-in-left-1' : i === 1 ? 'slide-in-left-2' : 'slide-in-left-3'
+                }`}
+                style={{ opacity: 0 }}
               >
                 <img src={post.image} alt={post.title} className="w-full h-48 object-cover" />
                 <div className="p-6">
