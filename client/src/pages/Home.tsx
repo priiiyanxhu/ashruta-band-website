@@ -448,20 +448,20 @@ function MusicSection({ activeVideo, setActiveVideo }: { activeVideo: any; setAc
                 <button
                   key={idx}
                   onClick={() => setActiveVideo(video)}
-                  className="group relative aspect-video bg-black overflow-hidden border border-red-600/20 hover:border-red-600/60 transition-all duration-300"
+                  className="video-thumbnail group relative aspect-video bg-black border border-red-600/20 hover:border-red-600 transition-all duration-300"
                 >
                   <video
                     src={video.src}
                     muted
                     preload="metadata"
-                    className="w-full h-full object-cover opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                    className="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-all duration-500"
                   />
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-black/20 transition-colors">
-                    <div className="w-12 h-12 flex items-center justify-center bg-red-600/80 group-hover:bg-red-600 rounded-full transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-red-600/40">
+                  <div className="video-overlay absolute inset-0 flex items-center justify-center bg-black/40 transition-colors duration-300">
+                    <div className="play-button w-12 h-12 flex items-center justify-center bg-red-600/80 rounded-full transition-all duration-300 group-hover:shadow-lg">
                       <Play className="w-5 h-5 text-white ml-0.5" />
                     </div>
                   </div>
-                  <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent">
+                  <div className="video-title absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent transition-all duration-300">
                     <p className="text-white text-xs font-semibold truncate">{video.title}</p>
                   </div>
                 </button>

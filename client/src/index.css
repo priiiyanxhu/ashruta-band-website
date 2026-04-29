@@ -233,6 +233,36 @@
   }
 }
 
+/* ═══════════════ VIDEO THUMBNAIL HOVER EFFECTS ═══════════════ */
+@keyframes videoGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(220, 38, 38, 0.3), 0 0 40px rgba(220, 38, 38, 0.1), 0 10px 30px rgba(0, 0, 0, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(220, 38, 38, 0.6), 0 0 80px rgba(220, 38, 38, 0.3), 0 20px 50px rgba(0, 0, 0, 0.6);
+  }
+}
+
+@keyframes videoZoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes playButtonPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(220, 38, 38, 0.4);
+  }
+  50% {
+    transform: scale(1.15);
+    box-shadow: 0 0 40px rgba(220, 38, 38, 0.8);
+  }
+}
+
 @layer utilities {
   .animate-fade-in-up {
     animation: fadeInUp 0.8s ease-out forwards;
@@ -291,3 +321,31 @@
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
   }
 }
+
+  /* Video Thumbnail Hover Effects */
+  .video-thumbnail {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .video-thumbnail:hover {
+    animation: videoGlow 1.5s ease-in-out infinite;
+  }
+
+  .video-thumbnail:hover video {
+    animation: videoZoom 0.6s ease-out forwards;
+  }
+
+  .video-thumbnail:hover .video-overlay {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
+  .video-thumbnail:hover .play-button {
+    animation: playButtonPulse 0.8s ease-in-out;
+  }
+
+  .video-thumbnail:hover .video-title {
+    transform: translateY(0);
+    opacity: 1;
+  }
