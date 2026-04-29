@@ -124,9 +124,9 @@ const GALLERY_IMAGES = [
 ];
 
 const TOUR_DATES = [
-  { date: "May 10, 2026", venue: "The Metal Dome", city: "Mumbai", status: "Tickets Available" },
-  { date: "May 25, 2026", venue: "Rock Arena", city: "Delhi", status: "Coming Soon" },
-  { date: "June 8, 2026", venue: "Festival Grounds", city: "Bangalore", status: "Coming Soon" },
+  { date: "May 10, 2026", venue: "The Metal Dome", city: "Mumbai", status: "Tickets Available", bookingUrl: "https://www.ticketmaster.in" },
+  { date: "May 25, 2026", venue: "Rock Arena", city: "Delhi", status: "Coming Soon", bookingUrl: "https://www.ticketmaster.in" },
+  { date: "June 8, 2026", venue: "Festival Grounds", city: "Bangalore", status: "Coming Soon", bookingUrl: "https://www.ticketmaster.in" },
 ];
 
 export default function Home() {
@@ -360,27 +360,43 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="space-y-4">
+          <div className="grid md:grid-cols-3 gap-6">
             {TOUR_DATES.map((show, i) => (
               <div
                 key={i}
-                className="bg-gray-900 p-6 rounded-lg flex flex-col md:flex-row md:items-center md:justify-between hover:bg-gray-800 transition-colors animate-slide-up"
+                className="bg-gradient-to-br from-gray-900 to-gray-950 p-8 rounded-lg border border-gray-800 hover:border-red-600/50 transition-all duration-300 animate-scale-in group"
                 style={{ animationDelay: `${i * 0.1}s` }}
               >
-                <div className="flex-1 mb-4 md:mb-0">
-                  <div className="flex items-center gap-2 text-red-500 mb-2">
+                <div className="mb-6">
+                  <div className="flex items-center gap-2 text-red-500 mb-3">
                     <Calendar size={18} />
-                    <span className="font-semibold">{show.date}</span>
+                    <span className="font-bold text-sm tracking-wide">{show.date}</span>
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-1">{show.venue}</h3>
+                  <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-red-500 transition-colors">{show.venue}</h3>
                   <div className="flex items-center gap-2 text-gray-400">
                     <MapPin size={16} />
-                    <span>{show.city}</span>
+                    <span className="text-sm">{show.city}</span>
                   </div>
                 </div>
-                <button className="px-6 py-2 bg-red-600 hover:bg-red-700 rounded text-white font-bold transition-all duration-300 hover:shadow-lg hover:shadow-red-600/50">
-                  GET TICKETS
-                </button>
+                
+                <div className="mb-6">
+                  <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold tracking-widest ${
+                    show.status === "Tickets Available" 
+                      ? "bg-green-600/20 text-green-400 border border-green-600/50" 
+                      : "bg-yellow-600/20 text-yellow-400 border border-yellow-600/50"
+                  }`}>
+                    {show.status}
+                  </span>
+                </div>
+                
+                <a
+                  href={show.bookingUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full inline-block px-6 py-3 bg-red-600 hover:bg-red-700 rounded text-white font-bold text-center transition-all duration-300 hover:shadow-lg hover:shadow-red-600/50 group-hover:scale-105 transform"
+                >
+                  BUY TICKETS
+                </a>
               </div>
             ))}
           </div>
