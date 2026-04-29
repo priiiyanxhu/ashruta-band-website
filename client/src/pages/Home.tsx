@@ -8,7 +8,7 @@
  */
 
 import { useState } from "react";
-import { Instagram, Youtube, Mail, Play, MapPin, Calendar, ArrowRight, X } from "lucide-react";
+import { Instagram, Youtube, Mail, Play, MapPin, Calendar, ArrowRight, X, Phone } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import MusicPlayer from "@/components/MusicPlayer";
 import VideoModal from "@/components/VideoModal";
@@ -400,6 +400,17 @@ export default function Home() {
               </div>
             ))}
           </div>
+
+          <div className="mt-16 p-8 bg-gradient-to-r from-red-600/10 to-red-600/5 border border-red-600/30 rounded-lg text-center animate-fade-in">
+            <p className="text-gray-400 mb-3">Can't find your show or need to book directly?</p>
+            <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+              <span className="text-white font-semibold">Call us to book tickets:</span>
+              <a href="tel:8076861755" className="px-6 py-3 bg-red-600 hover:bg-red-700 rounded text-white font-bold transition-all duration-300 hover:shadow-lg hover:shadow-red-600/50 flex items-center gap-2">
+                <Phone size={18} />
+                +91 8076861755
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -587,6 +598,17 @@ export default function Home() {
                     <h3 className="text-lg font-bold text-white mb-2">Location</h3>
                     <p className="text-gray-400">India</p>
                     <p className="text-gray-500 text-sm mt-1">Based in India, performing worldwide</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-red-600/20 to-red-600/5 p-6 rounded-lg border border-red-600/50 hover:border-red-600 transition-colors">
+                <div className="flex items-start gap-4">
+                  <Phone className="w-6 h-6 text-red-500 flex-shrink-0 mt-1" />
+                  <div>
+                    <h3 className="text-lg font-bold text-white mb-2">Book Tickets</h3>
+                    <a href="tel:8076861755" className="text-red-400 hover:text-red-300 transition-colors font-semibold">+91 8076861755</a>
+                    <p className="text-gray-500 text-sm mt-1">Call us for direct booking inquiries</p>
                   </div>
                 </div>
               </div>
