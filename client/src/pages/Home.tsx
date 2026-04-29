@@ -69,7 +69,7 @@ const BAND_MEMBERS = [
     role: "Managing Director",
       instagram: "https://www.instagram.com/ayanyash_",
     description: "The strategic mind guiding Ashruta's vision, managing the band's creative direction and growth.",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663610606370/HHQJazzH5Fe87jLaRJU782/ayan-portrait-admEEMpXXS6c9WjKBoB4aM.webp",
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663610606370/HHQJazzH5Fe87jLaRJU782/ayan-yash-portrait-oAU2aqWokV64mALWttDHc6.webp",
   },
 ];
 
