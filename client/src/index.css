@@ -288,6 +288,22 @@
     animation: slideInUp 0.8s ease-out forwards;
   }
 
+  .animate-fade-in {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideInUp 0.8s ease-out forwards;
+  }
+
+  .animate-slide-left {
+    animation: fadeInLeft 0.8s ease-out forwards;
+  }
+
+  .animate-slide-right {
+    animation: fadeInRight 0.8s ease-out forwards;
+  }
+
   /* Stagger animations for lists */
   .animate-stagger-1 {
     animation-delay: 0.1s;

@@ -6,6 +6,11 @@ interface ScrollAnimationOptions {
   triggerOnce?: boolean;
 }
 
+export interface ScrollAnimationReturn {
+  ref: React.RefObject<HTMLElement>;
+  isInView: boolean;
+}
+
 /**
  * Hook to trigger animations when elements come into view
  * Returns a ref to attach to the element and a boolean indicating if it's in view
@@ -17,7 +22,7 @@ export function useScrollAnimation(options: ScrollAnimationOptions = {}) {
     triggerOnce = true,
   } = options;
 
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLElement>(null);
   const [isInView, setIsInView] = useState(false);
   const [hasTriggered, setHasTriggered] = useState(false);
 
@@ -51,5 +56,5 @@ export function useScrollAnimation(options: ScrollAnimationOptions = {}) {
     };
   }, [threshold, rootMargin, triggerOnce]);
 
-  return { ref, isInView: triggerOnce ? hasTriggered : isInView };
+  return { ref: ref as React.RefObject<HTMLElement>, isInView: triggerOnce ? hasTriggered : isInView };
 }
