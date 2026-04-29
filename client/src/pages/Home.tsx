@@ -14,8 +14,10 @@ import MusicPlayer from "@/components/MusicPlayer";
 import VideoModal from "@/components/VideoModal";
 import { InstagramFeed } from "@/components/InstagramFeed";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
+import FAQAccordion from "@/components/FAQAccordion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useScrollAnimations, useInViewport } from "@/hooks/useScrollAnimations";
+import { FAQ_ITEMS } from "@/data/faqData";
 
 /* ── Asset URLs ── */
 const ASSETS = {
@@ -623,6 +625,17 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ── FAQ SECTION ── */}
+      <section id="faq" className="py-20 px-4 bg-black border-t border-gray-900">
+        <div className="max-w-4xl mx-auto">
+          <FAQAccordion
+            items={FAQ_ITEMS}
+            title="Frequently Asked Questions"
+            description="Find answers to common questions about booking, our music, and the band."
+          />
         </div>
       </section>
 
