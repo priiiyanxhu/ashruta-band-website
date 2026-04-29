@@ -235,7 +235,8 @@ export default defineConfig({
     ],
     fs: {
       strict: true,
-      deny: ["**/.*"],
+      deny: ["**/..*"],
     },
+    hmr: false,
   },
 });
