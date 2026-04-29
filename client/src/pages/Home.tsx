@@ -12,6 +12,7 @@ import { Instagram, Youtube, Mail, Play, MapPin, Calendar, ArrowRight, X } from 
 import Navbar from "@/components/Navbar";
 import MusicPlayer from "@/components/MusicPlayer";
 import VideoModal from "@/components/VideoModal";
+import { InstagramFeed } from "@/components/InstagramFeed";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 /* ── Asset URLs ── */
@@ -425,6 +426,43 @@ export default function Home() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── INSTAGRAM SECTION ── */}
+      <section className="py-20 px-4 bg-gray-950">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16 animate-fade-in">
+            <p className="text-red-500 font-semibold tracking-widest mb-2">FOLLOW US</p>
+            <h2 className="text-4xl md:text-5xl font-bold font-oswald mb-4">
+              Connect on <span className="text-red-500">Instagram</span>
+            </h2>
+            <p className="text-gray-300 max-w-2xl mx-auto">
+              Stay updated with behind-the-scenes content, live performances, and exclusive updates from Ashruta and our members.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="animate-slide-left">
+              <InstagramFeed
+                username="ashruta_theband"
+                profileUrl="https://www.instagram.com/ashruta_theband"
+                displayName="ASHRUTA--ARAMBH"
+                bio="Bollywood Fusion in Rock Metal | Official Band Account"
+                followers="1.2K+"
+              />
+            </div>
+            <div className="animate-slide-right">
+              <InstagramFeed
+                username="flautist_rachita"
+                profileUrl="https://www.instagram.com/flautist_rachita"
+                displayName="Rachita"
+                bio="Flutist | Ashruta the Band | Classical meets Metal"
+                followers="500+"
+                posts={3}
+              />
+            </div>
           </div>
         </div>
       </section>
