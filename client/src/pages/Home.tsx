@@ -10,7 +10,8 @@
 import { useState, useRef } from "react";
 import { Instagram, Youtube, Mail, Play, MapPin, Calendar, ArrowRight, X, Phone } from "lucide-react";
 import Navbar from "@/components/Navbar";
-import MusicPlayer from "@/components/MusicPlayer";
+import EnhancedMusicPlayer from "@/components/EnhancedMusicPlayer";
+import { generatePlaceholderTracks, createPlaceholderAudioUrl } from "@/lib/audioGenerator";
 import VideoModal from "@/components/VideoModal";
 import { InstagramFeed } from "@/components/InstagramFeed";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
@@ -18,6 +19,12 @@ import FAQAccordion from "@/components/FAQAccordion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useScrollAnimations, useInViewport } from "@/hooks/useScrollAnimations";
 import { FAQ_ITEMS } from "@/data/faqData";
+
+// Generate placeholder tracks with audio URLs
+const PLACEHOLDER_TRACKS = generatePlaceholderTracks().map((track) => ({
+  ...track,
+  url: createPlaceholderAudioUrl(track.duration),
+}));
 
 /* ── Asset URLs ── */
 const ASSETS = {
@@ -287,7 +294,7 @@ export default function Home() {
             {/* Music Player */}
             <div className="animate-slide-left">
               <h3 className="text-2xl font-bold mb-6 font-oswald text-red-500">Featured Tracks</h3>
-              <MusicPlayer tracks={TRACKS} />
+              <EnhancedMusicPlayer tracks={PLACEHOLDER_TRACKS} />
             </div>
 
             {/* Video Gallery */}
