@@ -142,6 +142,9 @@ export default function Home() {
   const tourRef = useScrollAnimation();
   const blogRef = useScrollAnimation();
   const newsletterRef = useScrollAnimation();
+  const contactRef = useScrollAnimation();
+  const [contactFormData, setContactFormData] = useState({ name: "", email: "", subject: "", message: "" });
+  const [contactSubmitted, setContactSubmitted] = useState(false);
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
@@ -422,6 +425,128 @@ export default function Home() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── CONTACT SECTION ── */}
+      <section id="contact" ref={contactRef.ref} className="py-20 px-4 bg-black">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16 animate-fade-in">
+            <p className="text-red-500 font-semibold tracking-widest mb-2">GET IN TOUCH</p>
+            <h2 className="text-4xl md:text-5xl font-bold font-oswald mb-4">
+              Contact <span className="text-red-500">Ashruta</span>
+            </h2>
+            <p className="text-gray-300 max-w-2xl mx-auto">
+              Have questions, booking inquiries, or just want to say hello? Reach out to us and let's connect.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-12">
+            {/* Contact Form */}
+            <div className="animate-slide-left">
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  setContactSubmitted(true);
+                  setTimeout(() => setContactSubmitted(false), 3000);
+                }}
+                className="space-y-4"
+              >
+                <div>
+                  <label className="block text-sm font-semibold text-gray-300 mb-2">Name</label>
+                  <input
+                    type="text"
+                    value={contactFormData.name}
+                    onChange={(e) => setContactFormData({ ...contactFormData, name: e.target.value })}
+                    className="w-full px-4 py-3 bg-gray-900 text-white rounded border border-gray-800 focus:border-red-600 focus:outline-none transition-colors"
+                    placeholder="Your name"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-300 mb-2">Email</label>
+                  <input
+                    type="email"
+                    value={contactFormData.email}
+                    onChange={(e) => setContactFormData({ ...contactFormData, email: e.target.value })}
+                    className="w-full px-4 py-3 bg-gray-900 text-white rounded border border-gray-800 focus:border-red-600 focus:outline-none transition-colors"
+                    placeholder="your@email.com"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-300 mb-2">Subject</label>
+                  <input
+                    type="text"
+                    value={contactFormData.subject}
+                    onChange={(e) => setContactFormData({ ...contactFormData, subject: e.target.value })}
+                    className="w-full px-4 py-3 bg-gray-900 text-white rounded border border-gray-800 focus:border-red-600 focus:outline-none transition-colors"
+                    placeholder="Message subject"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-300 mb-2">Message</label>
+                  <textarea
+                    value={contactFormData.message}
+                    onChange={(e) => setContactFormData({ ...contactFormData, message: e.target.value })}
+                    className="w-full px-4 py-3 bg-gray-900 text-white rounded border border-gray-800 focus:border-red-600 focus:outline-none transition-colors h-32 resize-none"
+                    placeholder="Your message here..."
+                    required
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full px-6 py-3 bg-red-600 hover:bg-red-700 rounded text-white font-bold transition-all duration-300 hover:shadow-lg hover:shadow-red-600/50"
+                >
+                  SEND MESSAGE
+                </button>
+                {contactSubmitted && (
+                  <p className="text-green-400 text-sm text-center animate-fade-in">✓ Message received! We'll get back to you soon.</p>
+                )}
+              </form>
+            </div>
+
+            {/* Contact Info */}
+            <div className="animate-slide-right space-y-8">
+              <div className="bg-gray-900 p-6 rounded-lg border border-gray-800 hover:border-red-600/50 transition-colors">
+                <div className="flex items-start gap-4">
+                  <Mail className="w-6 h-6 text-red-500 flex-shrink-0 mt-1" />
+                  <div>
+                    <h3 className="text-lg font-bold text-white mb-2">Email</h3>
+                    <p className="text-gray-400">contact@ashrutaband.com</p>
+                    <p className="text-gray-500 text-sm mt-1">We respond within 24 hours</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gray-900 p-6 rounded-lg border border-gray-800 hover:border-red-600/50 transition-colors">
+                <div className="flex items-start gap-4">
+                  <Instagram className="w-6 h-6 text-red-500 flex-shrink-0 mt-1" />
+                  <div>
+                    <h3 className="text-lg font-bold text-white mb-2">Instagram</h3>
+                    <div className="space-y-1">
+                      <p className="text-gray-400 text-sm"><a href="https://www.instagram.com/goutam_d_gaayak" target="_blank" rel="noopener noreferrer" className="hover:text-red-500 transition-colors">@goutam_d_gaayak</a></p>
+                      <p className="text-gray-400 text-sm"><a href="https://www.instagram.com/chinmax_mewzik" target="_blank" rel="noopener noreferrer" className="hover:text-red-500 transition-colors">@chinmax_mewzik</a></p>
+                      <p className="text-gray-400 text-sm"><a href="https://www.instagram.com/parth_plays_keys" target="_blank" rel="noopener noreferrer" className="hover:text-red-500 transition-colors">@parth_plays_keys</a></p>
+                      <p className="text-gray-400 text-sm"><a href="https://www.instagram.com/ayanyash_" target="_blank" rel="noopener noreferrer" className="hover:text-red-500 transition-colors">@ayanyash_</a></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gray-900 p-6 rounded-lg border border-gray-800 hover:border-red-600/50 transition-colors">
+                <div className="flex items-start gap-4">
+                  <MapPin className="w-6 h-6 text-red-500 flex-shrink-0 mt-1" />
+                  <div>
+                    <h3 className="text-lg font-bold text-white mb-2">Location</h3>
+                    <p className="text-gray-400">India</p>
+                    <p className="text-gray-500 text-sm mt-1">Based in India, performing worldwide</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
