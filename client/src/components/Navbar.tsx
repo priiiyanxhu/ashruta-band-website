@@ -15,12 +15,43 @@ const NAV_LINKS = [
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("#about");
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Detect active section on scroll
+  useEffect(() => {
+    const handleSectionDetection = () => {
+      const sections = NAV_LINKS.map(link => link.href.substring(1));
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= 100 && rect.bottom >= 100) {
+            setActiveSection(`#${section}`);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleSectionDetection);
+    return () => window.removeEventListener("scroll", handleSectionDetection);
+  }, []);
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const element = document.getElementById(href.substring(1));
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+      setActiveSection(href);
+      setIsMobileOpen(false);
+    }
+  };
 
   return (
     <nav
@@ -32,7 +63,11 @@ export default function Navbar() {
     >
       <div className="container flex items-center justify-between">
         {/* Logo */}
-        <a href="#" className="flex items-center gap-3 group">
+        <a 
+          href="#hero" 
+          onClick={(e) => handleNavClick(e, "#hero")} 
+          className="flex items-center gap-3 group cursor-pointer"
+        >
           <img
             src={LOGO_URL}
             alt="Ashruta Logo"
@@ -52,11 +87,20 @@ export default function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm font-semibold uppercase tracking-wider text-gray-300 hover:text-red-500 transition-colors duration-200 relative group"
+              onClick={(e) => handleNavClick(e, link.href)}
+              className={`text-sm font-semibold uppercase tracking-wider transition-colors duration-200 relative group cursor-pointer ${
+                activeSection === link.href
+                  ? "text-red-500"
+                  : "text-gray-300 hover:text-red-500"
+              }`}
               style={{ fontFamily: "'Montserrat', sans-serif" }}
             >
               {link.label}
-              <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-red-600 group-hover:w-full transition-all duration-300" />
+              <span 
+                className={`absolute -bottom-1 left-0 h-[2px] bg-red-600 transition-all duration-300 ${
+                  activeSection === link.href ? "w-full" : "w-0 group-hover:w-full"
+                }`} 
+              />
             </a>
           ))}
         </div>
@@ -78,8 +122,12 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                onClick={() => setIsMobileOpen(false)}
-                className="text-lg font-bold uppercase tracking-wider text-gray-300 hover:text-red-500 transition-colors py-2 border-b border-gray-800"
+                onClick={(e) => handleNavClick(e, link.href)}
+                className={`text-lg font-bold uppercase tracking-wider transition-colors py-2 border-b cursor-pointer ${
+                  activeSection === link.href
+                    ? "text-red-500 border-red-600/50"
+                    : "text-gray-300 hover:text-red-500 border-gray-800"
+                }`}
                 style={{ fontFamily: "'Oswald', sans-serif" }}
               >
                 {link.label}

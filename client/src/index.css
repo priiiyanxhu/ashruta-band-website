@@ -628,3 +628,53 @@
     box-shadow: 0 20px 40px rgba(255, 0, 0, 0.2);
   }
 }
+
+
+/* ═══════════════ SMOOTH SCROLL NAVIGATION ═══════════════ */
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* Account for fixed navbar height */
+}
+
+/* Smooth scroll for anchor links */
+a[href^="#"] {
+  scroll-behavior: smooth;
+}
+
+/* Smooth scroll container */
+.smooth-scroll {
+  scroll-behavior: smooth;
+}
+
+/* Scroll link active state indicator */
+.nav-link-active {
+  color: #EF4444;
+  border-bottom: 2px solid #EF4444;
+  padding-bottom: 4px;
+}
+
+/* Smooth transition for nav links */
+.nav-link {
+  transition: all 0.3s ease-out;
+  position: relative;
+}
+
+.nav-link:hover {
+  color: #EF4444;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #EF4444;
+  transition: width 0.3s ease-out;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
