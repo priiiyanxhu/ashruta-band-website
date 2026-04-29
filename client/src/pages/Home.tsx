@@ -41,21 +41,21 @@ const BAND_MEMBERS = [
     role: "Founder & Vocalist",
     instagram: "https://www.instagram.com/goutam_d_gaayak",
     description: "The visionary force behind Ashruta, delivering powerful vocals that fuse raw metal intensity with soulful Bollywood melodies.",
-    image: null,
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663610606370/HHQJazzH5Fe87jLaRJU782/goutam-portrait-U99EEBLpWwuS9eDD6c4uft.webp",
   },
   {
     name: "Chinmay",
     role: "Electric Guitarist",
     instagram: "https://www.instagram.com/chinmax_mewzik",
     description: "Master of crushing riffs and intricate solos, Chinmay brings the heavy metal backbone to every performance.",
-    image: null,
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663610606370/HHQJazzH5Fe87jLaRJU782/chinmay-portrait-ZqL2TCXT9rchPGKdtcGjaj.webp",
   },
   {
     name: "Parth",
     role: "Keys",
     instagram: "https://www.instagram.com/parth_plays_keys",
     description: "Creates rich melodic layers and atmospheric textures that bridge the gap between Bollywood and metal.",
-    image: null,
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663610606370/HHQJazzH5Fe87jLaRJU782/parth-portrait-WBoQr4zDEZoDHrDS8376MA.webp",
   },
   {
     name: "Rachita",
@@ -67,9 +67,9 @@ const BAND_MEMBERS = [
   {
     name: "Ayan Yash",
     role: "Managing Director",
-    instagram: "https://www.instagram.com/ayanyash_",
+      instagram: "https://www.instagram.com/ayanyash_",
     description: "The strategic mind guiding Ashruta's vision, managing the band's creative direction and growth.",
-    image: null,
+    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663610606370/HHQJazzH5Fe87jLaRJU782/ayan-portrait-admEEMpXXS6c9WjKBoB4aM.webp",
   },
 ];
 
