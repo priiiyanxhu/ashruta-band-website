@@ -16,6 +16,7 @@ import VideoModal from "@/components/VideoModal";
 import { InstagramFeed } from "@/components/InstagramFeed";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
 import FAQAccordion from "@/components/FAQAccordion";
+import StreamingPlatforms from "@/components/StreamingPlatforms";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useScrollAnimations, useInViewport } from "@/hooks/useScrollAnimations";
 import { FAQ_ITEMS } from "@/data/faqData";
@@ -295,6 +296,7 @@ export default function Home() {
             <div className="animate-slide-left">
               <h3 className="text-2xl font-bold mb-6 font-oswald text-red-500">Featured Tracks</h3>
               <EnhancedMusicPlayer tracks={PLACEHOLDER_TRACKS} />
+              <StreamingPlatforms />
             </div>
 
             {/* Video Gallery */}
