@@ -61,7 +61,7 @@ const BAND_MEMBERS = [
   {
     name: "Rachita",
     role: "Flute",
-    instagram: null,
+    instagram: "https://www.instagram.com/flautist_rachita",
     description: "Brings the haunting beauty of traditional Indian flute into the metal soundscape, creating a truly unique fusion.",
     image: ASSETS.rachita,
   },
@@ -443,7 +443,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="max-w-2xl mx-auto">
             <div className="animate-slide-left">
               <InstagramFeed
                 username="ashruta_theband"
@@ -451,16 +451,6 @@ export default function Home() {
                 displayName="ASHRUTA--ARAMBH"
                 bio="Bollywood Fusion in Rock Metal | Official Band Account"
                 followers="1.2K+"
-              />
-            </div>
-            <div className="animate-slide-right">
-              <InstagramFeed
-                username="flautist_rachita"
-                profileUrl="https://www.instagram.com/flautist_rachita"
-                displayName="Rachita"
-                bio="Flutist | Ashruta the Band | Classical meets Metal"
-                followers="500+"
-                posts={3}
               />
             </div>
           </div>
