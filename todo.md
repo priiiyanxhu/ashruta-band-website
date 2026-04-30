@@ -49,3 +49,22 @@
 - [ ] Add booking inquiry form to the website (separate from contact form)
 - [ ] Add real audio tracks to music player
 - [ ] Connect blog posts to database (currently hardcoded)
+
+## Scroll Effects & Animations (Slipknot-Inspired)
+- [x] Create useScrollPosition hook for tracking scroll position
+- [x] Create useParallax hook for parallax background effects
+- [x] Add CSS utilities for diagonal section dividers (clip-path)
+- [x] Create ParallaxSection component for reusable parallax backgrounds
+- [x] Add scroll effects CSS utilities (fade-in, slide-in, scale-up, stagger)
+- [x] Implement scroll-triggered active navigation highlighting
+- [x] Create scroll utilities tests (vitest)
+- [ ] Implement parallax on hero section
+- [ ] Implement parallax on about section
+- [ ] Implement parallax on tour/events section
+- [ ] Implement parallax on contact section
+- [ ] Add diagonal cuts between major sections
+- [ ] Implement colour temperature sequencing (warm → cool → hot transitions)
+- [ ] Add atmospheric effects (smoke/haze textures)
+- [ ] Implement scroll-triggered active navigation highlighting
+- [ ] Create scroll utilities tests (vitest)
+- [ ] Performance optimization for parallax (requestAnimationFrame)

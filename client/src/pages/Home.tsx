@@ -22,6 +22,8 @@ import FAQAccordion from "@/components/FAQAccordion";
 import StreamingPlatforms from "@/components/StreamingPlatforms";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useScrollAnimations, useInViewport } from "@/hooks/useScrollAnimations";
+import { useScrollPosition, useActiveSection } from "@/hooks/useScrollPosition";
+import ParallaxSection from "@/components/ParallaxSection";
 import { FAQ_ITEMS } from "@/data/faqData";
 
 // Generate placeholder tracks with audio URLs
@@ -187,10 +189,13 @@ export default function Home() {
     },
   });
 
+  const { scrollY } = useScrollPosition();
+  const activeSection = useActiveSection(['hero', 'about', 'members', 'music', 'gallery', 'blog', 'tour', 'contact', 'faq']);
+
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
       <ScrollProgressBar />
-      <Navbar />
+      <Navbar activeSection={activeSection} />
 
       {/* ── HERO SECTION ── */}
       <section

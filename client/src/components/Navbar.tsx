@@ -13,10 +13,15 @@ const NAV_LINKS = [
   { href: "#contact", label: "Contact" },
 ];
 
-export default function Navbar() {
+interface NavbarProps {
+  activeSection?: string | null;
+}
+
+export default function Navbar({ activeSection: activeSectionProp }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("#about");
+  const currentActive = activeSectionProp ? `#${activeSectionProp}` : activeSection;
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -90,7 +95,7 @@ export default function Navbar() {
               href={link.href}
               onClick={(e) => handleNavClick(e, link.href)}
               className={`text-sm font-semibold uppercase tracking-wider transition-colors duration-200 relative group cursor-pointer ${
-                activeSection === link.href
+                currentActive === link.href
                   ? "text-red-500"
                   : "text-gray-300 hover:text-red-500"
               }`}
@@ -99,7 +104,7 @@ export default function Navbar() {
               {link.label}
               <span 
                 className={`absolute -bottom-1 left-0 h-[2px] bg-red-600 transition-all duration-300 ${
-                  activeSection === link.href ? "w-full" : "w-0 group-hover:w-full"
+                  currentActive === link.href ? "w-full" : "w-0 group-hover:w-full"
                 }`} 
               />
             </a>
