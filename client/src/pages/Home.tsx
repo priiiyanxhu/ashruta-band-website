@@ -8,6 +8,9 @@
  */
 
 import { useState, useRef } from "react";
+import { trpc } from "@/lib/trpc";
+import { toast } from "sonner";
+import { useAuth } from "@/_core/hooks/useAuth";
 import { Instagram, Youtube, Mail, Play, MapPin, Calendar, ArrowRight, X, Phone } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import EnhancedMusicPlayer from "@/components/EnhancedMusicPlayer";
@@ -142,6 +145,8 @@ const TOUR_DATES = [
 ];
 
 export default function Home() {
+  const { user } = useAuth();
+
   const [selectedVideo, setSelectedVideo] = useState<{ src: string; title: string } | null>(null);
   const [selectedGalleryImage, setSelectedGalleryImage] = useState<string | null>(null);
   const [expandedBlog, setExpandedBlog] = useState<number | null>(null);
@@ -158,6 +163,29 @@ export default function Home() {
   const contactRef = useScrollAnimation();
   const [contactFormData, setContactFormData] = useState({ name: "", email: "", subject: "", message: "" });
   const [contactSubmitted, setContactSubmitted] = useState(false);
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+
+  const contactMutation = trpc.contact.submit.useMutation({
+    onSuccess: (data) => {
+      setContactSubmitted(true);
+      setContactFormData({ name: "", email: "", subject: "", message: "" });
+      toast.success(data.message);
+      setTimeout(() => setContactSubmitted(false), 5000);
+    },
+    onError: (err) => {
+      toast.error(err.message || "Failed to send message. Please try again.");
+    },
+  });
+
+  const newsletterMutation = trpc.newsletter.subscribe.useMutation({
+    onSuccess: (data) => {
+      setNewsletterEmail("");
+      toast.success(data.message);
+    },
+    onError: (err) => {
+      toast.error(err.message || "Failed to subscribe. Please try again.");
+    },
+  });
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
@@ -523,8 +551,7 @@ export default function Home() {
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
-                  setContactSubmitted(true);
-                  setTimeout(() => setContactSubmitted(false), 3000);
+                  contactMutation.mutate(contactFormData);
                 }}
                 className="space-y-4"
               >
@@ -573,12 +600,13 @@ export default function Home() {
                 </div>
                 <button
                   type="submit"
-                  className="w-full px-6 py-3 bg-red-600 hover:bg-red-700 rounded text-white font-bold transition-all duration-300 hover:shadow-lg hover:shadow-red-600/50"
+                  disabled={contactMutation.isPending}
+                  className="w-full px-6 py-3 bg-red-600 hover:bg-red-700 disabled:opacity-60 disabled:cursor-not-allowed rounded text-white font-bold transition-all duration-300 hover:shadow-lg hover:shadow-red-600/50"
                 >
-                  SEND MESSAGE
+                  {contactMutation.isPending ? "SENDING..." : "SEND MESSAGE"}
                 </button>
                 {contactSubmitted && (
-                  <p className="text-green-400 text-sm text-center animate-fade-in">✓ Message received! We'll get back to you soon.</p>
+                  <p className="text-green-400 text-sm text-center animate-fade-in">✓ Message received! We'll get back to you within 24 hours.</p>
                 )}
               </form>
             </div>
@@ -658,18 +686,21 @@ export default function Home() {
           <p className="text-gray-300 mb-8">
             Be the first to hear new tracks, get exclusive content, and receive tour date announcements.
           </p>
-          <form className="flex gap-2 mb-6" onSubmit={(e) => { e.preventDefault(); alert("Newsletter signup ready for backend integration!"); }}>
+          <form className="flex gap-2 mb-6" onSubmit={(e) => { e.preventDefault(); newsletterMutation.mutate({ email: newsletterEmail }); }}>
             <input
               type="email"
+              value={newsletterEmail}
+              onChange={(e) => setNewsletterEmail(e.target.value)}
               placeholder="Enter your email address"
               className="flex-1 px-4 py-3 bg-gray-900 text-white rounded border border-gray-800 focus:border-red-600 focus:outline-none transition-colors"
               required
             />
             <button
               type="submit"
-              className="px-8 py-3 bg-red-600 hover:bg-red-700 rounded text-white font-bold transition-all duration-300 hover:shadow-lg hover:shadow-red-600/50"
+              disabled={newsletterMutation.isPending}
+              className="px-8 py-3 bg-red-600 hover:bg-red-700 disabled:opacity-60 disabled:cursor-not-allowed rounded text-white font-bold transition-all duration-300 hover:shadow-lg hover:shadow-red-600/50"
             >
-              SUBSCRIBE
+              {newsletterMutation.isPending ? "..." : "SUBSCRIBE"}
             </button>
           </form>
           <p className="text-gray-500 text-sm">We respect your privacy. Unsubscribe at any time.</p>
