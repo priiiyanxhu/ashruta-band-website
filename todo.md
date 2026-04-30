@@ -58,13 +58,13 @@
 - [x] Add scroll effects CSS utilities (fade-in, slide-in, scale-up, stagger)
 - [x] Implement scroll-triggered active navigation highlighting
 - [x] Create scroll utilities tests (vitest)
-- [ ] Implement parallax on hero section
-- [ ] Implement parallax on about section
-- [ ] Implement parallax on tour/events section
-- [ ] Implement parallax on contact section
-- [ ] Add diagonal cuts between major sections
-- [ ] Implement colour temperature sequencing (warm → cool → hot transitions)
-- [ ] Add atmospheric effects (smoke/haze textures)
-- [ ] Implement scroll-triggered active navigation highlighting
-- [ ] Create scroll utilities tests (vitest)
-- [ ] Performance optimization for parallax (requestAnimationFrame)
+- [x] Implement parallax on hero section (background-attachment: fixed)
+- [x] Implement parallax on about section with diagonal top cut
+- [x] Implement parallax on tour/events section with gradient
+- [x] Implement parallax on contact section with diagonal bottom cut
+- [x] Add diagonal cuts between major sections (clip-path polygons)
+- [x] Implement colour temperature sequencing (warm → cool → hot transitions)
+- [x] Add atmospheric effects (smoke/haze textures via gradients)
+- [x] Implement scroll-triggered active navigation highlighting
+- [x] Create scroll utilities tests (vitest)
+- [x] Performance optimization for parallax (requestAnimationFrame)

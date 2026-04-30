@@ -201,11 +201,12 @@ export default function Home() {
       <section
         id="hero"
         ref={heroRef.ref}
-        className="relative min-h-screen flex items-center justify-center overflow-hidden"
+        className="relative min-h-screen flex items-center justify-center overflow-hidden parallax-bg"
         style={{
           backgroundImage: `url(${ASSETS.heroBg})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
+          backgroundAttachment: "fixed",
         }}
       >
         <div className="absolute inset-0 bg-black/60" />
@@ -244,8 +245,9 @@ export default function Home() {
       </section>
 
       {/* ── ABOUT SECTION ── */}
-      <section id="about" ref={aboutRef.ref} className="py-20 px-4 bg-black">
-        <div className="max-w-6xl mx-auto">
+      <section id="about" ref={aboutRef.ref} className="py-20 px-4 bg-black relative diagonal-cut-top-padding" style={{ backgroundImage: `url(${ASSETS.aboutBg})`, backgroundAttachment: "fixed", backgroundSize: "cover", backgroundPosition: "center", clipPath: "polygon(0 3%, 100% 0, 100% 100%, 0 100%)" }}>
+        <div className="absolute inset-0 bg-black/70" />
+        <div className="max-w-6xl mx-auto relative z-10">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="animate-slide-left">
               <h2 className="text-4xl md:text-5xl font-bold mb-6 font-oswald text-red-500">
@@ -400,7 +402,7 @@ export default function Home() {
       </section>
 
       {/* ── TOUR DATES SECTION ── */}
-      <section id="tour" ref={tourRef.ref} className="py-20 px-4 bg-black">
+      <section id="tour" ref={tourRef.ref} className="py-20 px-4 bg-gradient-to-b from-black via-gray-900 to-black atmosphere-haze">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16 animate-fade-in">
             <p className="text-red-500 font-semibold tracking-widest mb-2">LIVE SHOWS</p>
@@ -466,7 +468,7 @@ export default function Home() {
       </section>
 
       {/* ── BLOG SECTION ── */}
-      <section id="blog" ref={blogRef.ref} className="py-20 px-4 bg-gray-950">
+      <section id="blog" ref={blogRef.ref} className="py-20 px-4 bg-gradient-to-b from-blue-950/20 via-gray-950 to-gray-950">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16 animate-fade-in">
             <p className="text-red-500 font-semibold tracking-widest mb-2">STORIES & INSIGHTS</p>
@@ -538,8 +540,8 @@ export default function Home() {
       </section>
 
       {/* ── CONTACT SECTION ── */}
-      <section id="contact" ref={contactRef.ref} className="py-20 px-4 bg-black">
-        <div className="max-w-4xl mx-auto">
+      <section id="contact" ref={contactRef.ref} className="py-20 px-4 bg-gradient-to-b from-gray-900 via-red-950/30 to-black relative diagonal-cut-bottom-padding atmosphere-smoke" style={{ clipPath: "polygon(0 0, 100% 2%, 100% 100%, 0 98%)" }}>
+        <div className="max-w-4xl mx-auto relative z-10">
           <div className="text-center mb-16 animate-fade-in">
             <p className="text-red-500 font-semibold tracking-widest mb-2">GET IN TOUCH</p>
             <h2 className="text-4xl md:text-5xl font-bold font-oswald mb-4">
