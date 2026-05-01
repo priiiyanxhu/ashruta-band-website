@@ -68,3 +68,8 @@
 - [x] Implement scroll-triggered active navigation highlighting
 - [x] Create scroll utilities tests (vitest)
 - [x] Performance optimization for parallax (requestAnimationFrame)
+
+## UX & Visual Improvements (Current)
+- [x] Add scroll-position-based fade-out to hero down arrow (opacity decreases as user scrolls)
+- [x] Enhance About section with visual interest and aesthetic appeal
+- [x] Add decorative elements and animations to About section (gradient accents, stats cards, corner borders, glow effects)

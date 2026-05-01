@@ -257,36 +257,71 @@ export default function Home() {
             </a>
           </div>
         </div>
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce" style={{ opacity: Math.max(0, 1 - scrollY / 300) }}>
           <div className="text-red-500 text-2xl">↓</div>
         </div>
       </section>
 
       {/* ── ABOUT SECTION ── */}
-      <section id="about" ref={aboutRef.ref} className="py-20 px-4 bg-black relative diagonal-cut-top-padding" style={{ backgroundImage: `url(${ASSETS.aboutBg})`, backgroundAttachment: "fixed", backgroundSize: "cover", backgroundPosition: "center", clipPath: "polygon(0 3%, 100% 0, 100% 100%, 0 100%)" }}>
+      <section id="about" ref={aboutRef.ref} className="py-20 px-4 bg-black relative diagonal-cut-top-padding overflow-hidden" style={{ backgroundImage: `url(${ASSETS.aboutBg})`, backgroundAttachment: "fixed", backgroundSize: "cover", backgroundPosition: "center", clipPath: "polygon(0 3%, 100% 0, 100% 100%, 0 100%)" }}>
+        {/* Decorative background elements */}
+        <div className="absolute inset-0 bg-gradient-to-br from-red-600/5 via-transparent to-purple-600/5" />
+        <div className="absolute top-20 right-0 w-96 h-96 bg-red-600/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-purple-600/5 rounded-full blur-3xl" />
         <div className="absolute inset-0 bg-black/70" />
+        
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="animate-slide-left">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 font-oswald text-red-500">
-                WHERE TWO WORLDS COLLIDE
+              {/* Accent line */}
+              <div className="h-1 w-16 bg-gradient-to-r from-red-600 to-red-400 mb-6 rounded-full" />
+              
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 font-oswald text-red-500 leading-tight">
+                WHERE TWO <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-300">WORLDS</span> COLLIDE
               </h2>
-              <p className="text-gray-300 text-lg mb-4 leading-relaxed">
+              
+              <p className="text-gray-300 text-lg mb-6 leading-relaxed border-l-4 border-red-600/50 pl-4 hover:border-red-600 transition-colors duration-300">
                 Ashruta represents a groundbreaking fusion of two powerful musical traditions. Born from a vision to blend the intensity of heavy metal with the soul and complexity of Bollywood, we've created something entirely new—a sound that's aggressive, melodic, intricate, and utterly unforgettable.
               </p>
-              <p className="text-gray-300 text-lg mb-4 leading-relaxed">
+              
+              <p className="text-gray-300 text-lg mb-6 leading-relaxed">
                 Our journey began when five musicians from different backgrounds realized that their unique perspectives could create magic together. What started as an experiment has evolved into a movement, challenging conventions and redefining what metal can be.
               </p>
-              <p className="text-gray-300 text-lg leading-relaxed">
+              
+              <p className="text-gray-300 text-lg leading-relaxed mb-8">
                 Every note we play, every riff we craft, and every lyric we deliver is a testament to the beauty of cultural fusion and the universal language of music. This is Ashruta—this is the future of metal.
               </p>
+              
+              {/* Stats cards */}
+              <div className="grid grid-cols-3 gap-4 mt-8">
+                <div className="bg-red-600/10 border border-red-600/30 rounded-lg p-4 hover:bg-red-600/20 transition-all duration-300 hover:shadow-lg hover:shadow-red-600/20">
+                  <div className="text-2xl font-bold text-red-500 font-oswald">5</div>
+                  <div className="text-xs text-gray-400 uppercase tracking-wider">Musicians</div>
+                </div>
+                <div className="bg-red-600/10 border border-red-600/30 rounded-lg p-4 hover:bg-red-600/20 transition-all duration-300 hover:shadow-lg hover:shadow-red-600/20">
+                  <div className="text-2xl font-bold text-red-500 font-oswald">∞</div>
+                  <div className="text-xs text-gray-400 uppercase tracking-wider">Possibilities</div>
+                </div>
+                <div className="bg-red-600/10 border border-red-600/30 rounded-lg p-4 hover:bg-red-600/20 transition-all duration-300 hover:shadow-lg hover:shadow-red-600/20">
+                  <div className="text-2xl font-bold text-red-500 font-oswald">1</div>
+                  <div className="text-xs text-gray-400 uppercase tracking-wider">Sound</div>
+                </div>
+              </div>
             </div>
-            <div className="animate-slide-right">
+            
+            <div className="animate-slide-right relative">
+              {/* Glow effect behind image */}
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/30 to-purple-600/20 rounded-lg blur-2xl" />
+              
               <img
                 src={ASSETS.aboutBg}
                 alt="Band performing"
-                className="rounded-lg shadow-2xl w-full h-96 object-cover"
+                className="rounded-lg shadow-2xl w-full h-96 object-cover relative z-10 border-2 border-red-600/30 hover:border-red-600/60 transition-all duration-300 hover:shadow-2xl hover:shadow-red-600/40"
               />
+              
+              {/* Corner accents */}
+              <div className="absolute top-0 right-0 w-12 h-12 border-t-2 border-r-2 border-red-600 rounded-tr-lg" />
+              <div className="absolute bottom-0 left-0 w-12 h-12 border-b-2 border-l-2 border-red-600 rounded-bl-lg" />
             </div>
           </div>
         </div>
