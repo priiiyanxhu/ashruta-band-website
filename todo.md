@@ -46,9 +46,9 @@
 - [x] Admin route in App.tsx
 
 ## Pending / Future
-- [ ] Add booking inquiry form to the website (separate from contact form)
-- [ ] Add real audio tracks to music player
-- [ ] Connect blog posts to database (currently hardcoded)
+- [x] Add booking inquiry form to the website (separate from contact form)
+- [x] Add coming soon banner for music player (real audio tracks TBD)
+- [x] Connect blog posts to database (fallback to hardcoded if empty)
 
 ## Scroll Effects & Animations (Slipknot-Inspired)
 - [x] Create useScrollPosition hook for tracking scroll position

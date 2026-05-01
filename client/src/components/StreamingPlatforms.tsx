@@ -9,9 +9,10 @@ interface StreamingLink {
 
 interface StreamingPlatformsProps {
   links?: StreamingLink[];
+  comingSoon?: boolean;
 }
 
-export default function StreamingPlatforms({ links }: StreamingPlatformsProps) {
+export default function StreamingPlatforms({ links, comingSoon = false }: StreamingPlatformsProps) {
   // Default streaming links - replace with actual artist links
   const defaultLinks: StreamingLink[] = [
     {
@@ -27,6 +28,19 @@ export default function StreamingPlatforms({ links }: StreamingPlatformsProps) {
   ];
 
   const streamingLinks = links || defaultLinks;
+
+  if (comingSoon) {
+    return (
+      <div className="mt-8 pt-8 border-t border-red-500/20">
+        <div className="p-4 bg-red-900/10 border border-red-500/20 rounded-lg text-center">
+          <p className="text-sm text-gray-300 mb-2">🎵 <strong>Music Coming Soon</strong></p>
+          <p className="text-xs text-gray-400">
+            Our debut album is in production. Streaming links will be available once tracks are released on all major platforms.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="mt-8 pt-8 border-t border-red-500/20">

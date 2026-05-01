@@ -148,6 +148,10 @@ const TOUR_DATES = [
 
 export default function Home() {
   const { user } = useAuth();
+  
+  // Fetch blog posts from database
+  const { data: dbBlogPosts = [] } = trpc.blog.list.useQuery();
+  const blogPosts = dbBlogPosts.length > 0 ? dbBlogPosts : BLOG_POSTS;
 
   const [selectedVideo, setSelectedVideo] = useState<{ src: string; title: string } | null>(null);
   const [selectedGalleryImage, setSelectedGalleryImage] = useState<string | null>(null);
@@ -165,6 +169,8 @@ export default function Home() {
   const contactRef = useScrollAnimation();
   const [contactFormData, setContactFormData] = useState({ name: "", email: "", subject: "", message: "" });
   const [contactSubmitted, setContactSubmitted] = useState(false);
+  const [bookingFormData, setBookingFormData] = useState({ name: "", email: "", phone: "", eventDate: "", eventType: "", venue: "", city: "", message: "" });
+  const [bookingSubmitted, setBookingSubmitted] = useState(false);
   const [newsletterEmail, setNewsletterEmail] = useState("");
 
   const contactMutation = trpc.contact.submit.useMutation({
@@ -176,6 +182,18 @@ export default function Home() {
     },
     onError: (err) => {
       toast.error(err.message || "Failed to send message. Please try again.");
+    },
+  });
+
+  const bookingMutation = trpc.booking.submit.useMutation({
+    onSuccess: (data) => {
+      setBookingSubmitted(true);
+      setBookingFormData({ name: "", email: "", phone: "", eventDate: "", eventType: "", venue: "", city: "", message: "" });
+      toast.success(data.message);
+      setTimeout(() => setBookingSubmitted(false), 5000);
+    },
+    onError: (err) => {
+      toast.error(err.message || "Failed to submit booking inquiry. Please try again.");
     },
   });
 
@@ -327,11 +345,22 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-12">
-            {/* Music Player */}
+            {/* Music Player - Coming Soon */}
             <div className="animate-slide-left">
-              <h3 className="text-2xl font-bold mb-6 font-oswald text-red-500">Featured Tracks</h3>
-              <EnhancedMusicPlayer tracks={PLACEHOLDER_TRACKS} />
-              <StreamingPlatforms />
+              <div className="bg-gradient-to-br from-red-950/30 to-black border-2 border-red-600/50 rounded-lg p-12 text-center">
+                <h3 className="text-2xl font-bold mb-4 font-oswald text-red-500">Featured Tracks</h3>
+                <div className="mb-8">
+                  <div className="text-6xl mb-4">🎵</div>
+                  <p className="text-gray-300 text-lg mb-2">Original Music Coming Soon</p>
+                  <p className="text-gray-400 text-sm">We are working on our debut album. Stay tuned for exclusive tracks and releases.</p>
+                </div>
+                <div className="flex gap-3 justify-center flex-wrap">
+                  <a href="#newsletter" className="px-6 py-2 bg-red-600 hover:bg-red-700 rounded text-white font-bold text-sm transition-all duration-300 hover:shadow-lg hover:shadow-red-600/50">
+                    Notify Me
+                  </a>
+                </div>
+              </div>
+              <StreamingPlatforms comingSoon={true} />
             </div>
 
             {/* Video Gallery */}
@@ -478,7 +507,7 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {BLOG_POSTS.map((post, i) => (
+            {blogPosts.map((post, i) => (
               <div
                 key={i}
                 className={`bg-black rounded-lg overflow-hidden hover:shadow-2xl hover:shadow-red-600/30 transition-all duration-300 ${
@@ -486,11 +515,11 @@ export default function Home() {
                 }`}
                 style={{ opacity: 0 }}
               >
-                <img src={post.image} alt={post.title} className="w-full h-48 object-cover" />
+                <img src={'image' in post ? post.image : post.imageUrl || ASSETS.blog1} alt={post.title} className="w-full h-48 object-cover" />
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-red-500 text-sm font-semibold">{post.date}</span>
-                    <span className="text-gray-500 text-sm">By {post.author}</span>
+                    <span className="text-red-500 text-sm font-semibold">{'date' in post ? post.date : new Date(post.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                    <span className="text-gray-500 text-sm">By {post.author || 'Ashruta'}</span>
                   </div>
                   <h3 className="text-lg font-bold text-white mb-3">{post.title}</h3>
                   <p className="text-gray-400 text-sm mb-4">{post.excerpt}</p>
@@ -668,6 +697,141 @@ export default function Home() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── BOOKING SECTION ── */}
+      <section id="booking" className="py-20 px-4 bg-gradient-to-b from-black via-purple-950/20 to-black border-t border-gray-900">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16 animate-fade-in">
+            <p className="text-red-500 font-semibold tracking-widest mb-2">BOOK ASHRUTA</p>
+            <h2 className="text-4xl md:text-5xl font-bold font-oswald mb-4">
+              Event <span className="text-red-500">Booking</span>
+            </h2>
+            <p className="text-gray-300 max-w-2xl mx-auto">
+              Interested in booking Ashruta for your event? Fill out the form below and we'll get back to you with details and availability.
+            </p>
+          </div>
+
+          <div className="max-w-2xl mx-auto">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                bookingMutation.mutate(bookingFormData);
+              }}
+              className="space-y-4 animate-slide-left"
+            >
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-300 mb-2">Full Name *</label>
+                  <input
+                    type="text"
+                    value={bookingFormData.name}
+                    onChange={(e) => setBookingFormData({ ...bookingFormData, name: e.target.value })}
+                    className="w-full px-4 py-3 bg-gray-900 text-white rounded border border-gray-800 focus:border-red-600 focus:outline-none transition-colors"
+                    placeholder="Your name"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-300 mb-2">Email *</label>
+                  <input
+                    type="email"
+                    value={bookingFormData.email}
+                    onChange={(e) => setBookingFormData({ ...bookingFormData, email: e.target.value })}
+                    className="w-full px-4 py-3 bg-gray-900 text-white rounded border border-gray-800 focus:border-red-600 focus:outline-none transition-colors"
+                    placeholder="your@email.com"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-300 mb-2">Phone Number</label>
+                <input
+                  type="tel"
+                  value={bookingFormData.phone}
+                  onChange={(e) => setBookingFormData({ ...bookingFormData, phone: e.target.value })}
+                  className="w-full px-4 py-3 bg-gray-900 text-white rounded border border-gray-800 focus:border-red-600 focus:outline-none transition-colors"
+                  placeholder="+91 XXXXX XXXXX"
+                />
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-300 mb-2">Event Date</label>
+                  <input
+                    type="date"
+                    value={bookingFormData.eventDate}
+                    onChange={(e) => setBookingFormData({ ...bookingFormData, eventDate: e.target.value })}
+                    className="w-full px-4 py-3 bg-gray-900 text-white rounded border border-gray-800 focus:border-red-600 focus:outline-none transition-colors"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-300 mb-2">Event Type</label>
+                  <select
+                    value={bookingFormData.eventType}
+                    onChange={(e) => setBookingFormData({ ...bookingFormData, eventType: e.target.value })}
+                    className="w-full px-4 py-3 bg-gray-900 text-white rounded border border-gray-800 focus:border-red-600 focus:outline-none transition-colors"
+                  >
+                    <option value="">Select event type</option>
+                    <option value="Festival">Festival</option>
+                    <option value="Concert">Concert</option>
+                    <option value="Corporate Event">Corporate Event</option>
+                    <option value="Wedding">Wedding</option>
+                    <option value="Private Party">Private Party</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-300 mb-2">Venue Name</label>
+                  <input
+                    type="text"
+                    value={bookingFormData.venue}
+                    onChange={(e) => setBookingFormData({ ...bookingFormData, venue: e.target.value })}
+                    className="w-full px-4 py-3 bg-gray-900 text-white rounded border border-gray-800 focus:border-red-600 focus:outline-none transition-colors"
+                    placeholder="Venue or location"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-300 mb-2">City</label>
+                  <input
+                    type="text"
+                    value={bookingFormData.city}
+                    onChange={(e) => setBookingFormData({ ...bookingFormData, city: e.target.value })}
+                    className="w-full px-4 py-3 bg-gray-900 text-white rounded border border-gray-800 focus:border-red-600 focus:outline-none transition-colors"
+                    placeholder="City"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-300 mb-2">Additional Details</label>
+                <textarea
+                  value={bookingFormData.message}
+                  onChange={(e) => setBookingFormData({ ...bookingFormData, message: e.target.value })}
+                  className="w-full px-4 py-3 bg-gray-900 text-white rounded border border-gray-800 focus:border-red-600 focus:outline-none transition-colors resize-none"
+                  placeholder="Tell us more about your event (budget, expected attendance, special requirements, etc.)"
+                  rows={5}
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={bookingMutation.isPending || bookingSubmitted}
+                className="w-full px-6 py-3 bg-red-600 hover:bg-red-700 disabled:bg-gray-600 text-white font-bold rounded transition-all duration-300 hover:shadow-lg hover:shadow-red-600/50 disabled:cursor-not-allowed"
+              >
+                {bookingMutation.isPending ? "Submitting..." : "Submit Booking Inquiry"}
+              </button>
+
+              {bookingSubmitted && (
+                <p className="text-green-400 text-sm text-center animate-fade-in">✓ Booking inquiry received! We'll contact you within 48 hours.</p>
+              )}
+            </form>
           </div>
         </div>
       </section>
