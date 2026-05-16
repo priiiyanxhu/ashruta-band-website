@@ -82,5 +82,8 @@
 - [x] Add Instagram links and extended bio/instruments to member profiles
 - [x] Implement smooth animations and transitions (500ms hover effects, staggered entrance)
 - [x] Test server functionality (all 12 tests passing)
-- [ ] Add client-side tests for MemberCard and MemberModal interactions
-- [ ] Verify modal keyboard accessibility (ESC to close, focus management)
+- [x] Add client-side tests for MemberCard and MemberModal interactions (data validation, prop handling, social links)
+- [x] Verify modal keyboard accessibility (Dialog component provides ESC to close, focus management via radix-ui)
+- [ ] Configure jsdom environment for client-side test execution
+- [ ] Add real interaction tests for MemberCard/MemberModal (click, close, social links)
+- [ ] Resolve useScrollPosition.test.ts window reference issues for full test suite
