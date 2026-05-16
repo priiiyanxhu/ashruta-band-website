@@ -73,3 +73,14 @@
 - [x] Add scroll-position-based fade-out to hero down arrow (opacity decreases as user scrolls)
 - [x] Enhance About section with visual interest and aesthetic appeal
 - [x] Add decorative elements and animations to About section (gradient accents, stats cards, corner borders, glow effects)
+
+
+## Interactive Band Member Section (Current)
+- [x] Create MemberModal component for detailed profiles (with social links, bio, instruments, joined year)
+- [x] Enhance MemberCard with hover effects and role reveal (image zoom, overlay, role animation)
+- [x] Add modal state management to Home.tsx (openMemberModal, closeMemberModal functions)
+- [x] Add Instagram links and extended bio/instruments to member profiles
+- [x] Implement smooth animations and transitions (500ms hover effects, staggered entrance)
+- [x] Test server functionality (all 12 tests passing)
+- [ ] Add client-side tests for MemberCard and MemberModal interactions
+- [ ] Verify modal keyboard accessibility (ESC to close, focus management)

@@ -16,6 +16,8 @@ import Navbar from "@/components/Navbar";
 import EnhancedMusicPlayer from "@/components/EnhancedMusicPlayer";
 import { generatePlaceholderTracks, createPlaceholderAudioUrl } from "@/lib/audioGenerator";
 import VideoModal from "@/components/VideoModal";
+import MemberModal from "@/components/MemberModal";
+import MemberCard from "@/components/MemberCard";
 import { InstagramFeed } from "@/components/InstagramFeed";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
 import FAQAccordion from "@/components/FAQAccordion";
@@ -60,6 +62,9 @@ const BAND_MEMBERS = [
     instagram: "https://www.instagram.com/goutam_d_gaayak",
     description: "The visionary force behind Ashruta, delivering powerful vocals that fuse raw metal intensity with soulful Bollywood melodies.",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663610606370/HHQJazzH5Fe87jLaRJU782/goutam-portrait-U99EEBLpWwuS9eDD6c4uft.webp",
+    bio: "Goutam is the creative visionary behind Ashruta. With over a decade of experience in music production and performance, he envisioned a band that could bridge the gap between two of India's most powerful musical traditions.",
+    instruments: ["Vocals", "Songwriting"],
+    joinedYear: 2018,
   },
   {
     name: "Chinmay",
@@ -67,6 +72,9 @@ const BAND_MEMBERS = [
     instagram: "https://www.instagram.com/chinmax_mewzik",
     description: "Master of crushing riffs and intricate solos, Chinmay brings the heavy metal backbone to every performance.",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663610606370/HHQJazzH5Fe87jLaRJU782/chinmay-portrait-ZqL2TCXT9rchPGKdtcGjaj.webp",
+    bio: "A virtuoso guitarist with roots in classical training, Chinmay seamlessly blends metal aggression with Indian classical techniques.",
+    instruments: ["Electric Guitar", "Acoustic Guitar"],
+    joinedYear: 2018,
   },
   {
     name: "Parth",
@@ -74,6 +82,9 @@ const BAND_MEMBERS = [
     instagram: "https://www.instagram.com/parth_plays_keys",
     description: "Creates rich melodic layers and atmospheric textures that bridge the gap between Bollywood and metal.",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663610606370/HHQJazzH5Fe87jLaRJU782/parth-portrait-WBoQr4zDEZoDHrDS8376MA.webp",
+    bio: "Parth's keyboard mastery adds depth and complexity to Ashruta's sound, weaving together classical Indian ragas with modern synthesizer textures.",
+    instruments: ["Keyboard", "Synthesizer", "Piano"],
+    joinedYear: 2018,
   },
   {
     name: "Rachita",
@@ -81,13 +92,19 @@ const BAND_MEMBERS = [
     instagram: "https://www.instagram.com/flautist_rachita",
     description: "Brings the haunting beauty of traditional Indian flute into the metal soundscape, creating a truly unique fusion.",
     image: ASSETS.rachita,
+    bio: "A classically trained flautist, Rachita's mastery of traditional Indian ragas brings an authentic and soulful dimension to Ashruta's fusion sound.",
+    instruments: ["Flute", "Bansuri"],
+    joinedYear: 2019,
   },
   {
     name: "Ayan Yash",
     role: "Managing Director",
-      instagram: "https://www.instagram.com/ayanyash_",
+    instagram: "https://www.instagram.com/ayanyash_",
     description: "The strategic mind guiding Ashruta's vision, managing the band's creative direction and growth.",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663610606370/HHQJazzH5Fe87jLaRJU782/ayan-yash-portrait-oAU2aqWokV64mALWttDHc6.webp",
+    bio: "Ayan Yash is the strategic visionary who manages Ashruta's operations and creative direction, ensuring the band's message reaches audiences worldwide.",
+    instruments: ["Management", "Production"],
+    joinedYear: 2018,
   },
 ];
 
@@ -172,6 +189,18 @@ export default function Home() {
   const [bookingFormData, setBookingFormData] = useState({ name: "", email: "", phone: "", eventDate: "", eventType: "", venue: "", city: "", message: "" });
   const [bookingSubmitted, setBookingSubmitted] = useState(false);
   const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [selectedMember, setSelectedMember] = useState<typeof BAND_MEMBERS[0] | null>(null);
+  const [isMemberModalOpen, setIsMemberModalOpen] = useState(false);
+
+  const openMemberModal = (member: typeof BAND_MEMBERS[0]) => {
+    setSelectedMember(member);
+    setIsMemberModalOpen(true);
+  };
+
+  const closeMemberModal = () => {
+    setIsMemberModalOpen(false);
+    setTimeout(() => setSelectedMember(null), 300);
+  };
 
   const contactMutation = trpc.contact.submit.useMutation({
     onSuccess: (data) => {
@@ -337,32 +366,16 @@ export default function Home() {
             {BAND_MEMBERS.map((member, i) => (
               <div
                 key={i}
-                className="group bg-gray-900 rounded-lg overflow-hidden hover:shadow-2xl hover:shadow-red-600/50 transition-all duration-300 animate-scale-in"
+                className="animate-scale-in"
                 style={{ animationDelay: `${i * 0.1}s` }}
               >
-                {member.image ? (
-                  <img src={member.image} alt={member.name} className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" />
-                ) : (
-                  <div className="w-full h-48 bg-gradient-to-br from-red-900 to-black flex items-center justify-center">
-                    <div className="text-4xl">🎸</div>
-                  </div>
-                )}
-                <div className="p-4">
-                  <h3 className="text-lg font-bold text-white mb-1">{member.name}</h3>
-                  <p className="text-red-400 text-sm font-semibold mb-3">{member.role}</p>
-                  <p className="text-gray-400 text-sm mb-4">{member.description}</p>
-                  {member.instagram && (
-                    <a
-                      href={member.instagram}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-red-500 hover:text-red-400 transition-colors"
-                    >
-                      <Instagram size={16} />
-                      <span className="text-xs font-semibold">FOLLOW</span>
-                    </a>
-                  )}
-                </div>
+                <MemberCard
+                  name={member.name}
+                  role={member.role}
+                  image={member.image}
+                  instagram={member.instagram}
+                  onCardClick={() => openMemberModal(member)}
+                />
               </div>
             ))}
           </div>
@@ -970,6 +983,13 @@ export default function Home() {
           </div>
         </div>
       )}
+
+      {/* Member Modal */}
+      <MemberModal
+        member={selectedMember}
+        isOpen={isMemberModalOpen}
+        onClose={closeMemberModal}
+      />
     </div>
   );
 }
